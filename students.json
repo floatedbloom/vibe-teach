@@ -1,10 +1,26 @@
 [
     {
-        "name": "jkhhk",
-        "analysis_summary": "",
+        "name": "John Doe",
+        "analysis_summary": "John has shown consistent improvement in Math and Science.",
         "recent_submissions": "",
         "class": "Algebra",
-        "completed_assignments": [],
+        "completed_assignments": [
+            {
+                "name": "Assignment 1",
+                "completion_date": "2025-04-15"
+            },
+            {
+                "name": "Assignment 2",
+                "completion_date": "2025-04-18"
+            }
+        ],
+        "Topics": {
+            "Math": 85,
+            "Science": 78,
+            "History": 65,
+            "English": 90,
+            "Art": 70
+        },
         "id": "79e7ce72-7595-41c2-8aab-8d5c4db0205a"
     },
     {

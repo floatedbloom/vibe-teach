@@ -16,5 +16,14 @@
         "submission_ids": [],
         "group": "all",
         "id": "3ea8b637-475e-4791-b429-87a8ae14a810"
+    },
+    {
+        "name": "",
+        "rubrics": [],
+        "assignment_type": "Formative",
+        "additional_grading_instructions": "",
+        "submission_ids": [],
+        "group": "all",
+        "id": "37ef80d3-cb46-4106-9bff-e2a42b28c92d"
     }
 ]

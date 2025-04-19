@@ -1,6 +1,6 @@
 import streamlit as st
-import st_pages as pages
 from funcs import get_students, get_assignments, add_student
+from pages.view_student import view_student_page
 
 # Title of the app
 st.header("Manage Classroom")
@@ -20,22 +20,28 @@ with st.form("add_student_form"):
 students = get_students()
 if students:
     st.subheader("Student List")
-    with st.container(height = 300):
+    with st.container(height=300):
         for student in students:
-            student_link = f"[**{student['name']}**](?page=view_student&student_name={student['name']})"
-            st.markdown(student_link, unsafe_allow_html=True)
+            # Create a button for each student
+            if st.button(f"View {student['name']}", key=student['id']):
+                # Update session state with the selected student's name
+                st.session_state["selected_student"] = student["name"]
+                # Debugging: Print the selected student
+                print(f"Selected student: {st.session_state['selected_student']}")
+                # Navigate to the view_student page
+                st.switch_page("pages/view_student.py")
             st.divider()  # Add a horizontal line between items
 else:
     st.info("No students added yet.")
 
 # Assignments Section
-st.subheader("Manage Assignments")  
+st.subheader("Manage Assignments")
 
 # Display list of assignments
 assignments = get_assignments()
 if assignments:
     st.subheader("Assignment List")
-    with st.container(height = 300):
+    with st.container(height=300):
         for assignment in assignments:
             st.write(f"**Name:** {assignment['name']}")
             st.write(f"**Type:** {assignment['assignment_type']}")
@@ -43,5 +49,6 @@ if assignments:
 else:
     st.info("No assignments added yet.")
 
-page = st.Page("pages/create_assigment.py")
-st.page_link(page, label="Add Assignments", icon="📝")
+# Button to navigate to the Create Assignment page
+if st.button("Add Assignments"):
+    st.switch_page("create_assignment")

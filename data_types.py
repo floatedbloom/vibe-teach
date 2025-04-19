@@ -26,6 +26,8 @@ class Student(TypedDict):
     name: str
     analysis_summary: str
     recent_submission_ids: list[Submission.__annotations__["id"]]
+    Topics: dict[str, int]
+
 
 
 class Assignment(TypedDict):
