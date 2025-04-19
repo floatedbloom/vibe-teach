@@ -31,3 +31,12 @@ lib64
 /share/
 pyvenv.cfg
 pydeck.json
+
+
+#ignore json files
+assignments.json
+class.json
+students.json
+submissions.json
+documents.json
+

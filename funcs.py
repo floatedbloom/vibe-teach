@@ -3,23 +3,28 @@ import json
 import tools
 import data_types
 
-def get_uuid(): return str(uuid.uuid4())
 
-async def add_document(filename : str, page_images : list[str]):
+def get_uuid():
+    return str(uuid.uuid4())
 
+
+async def add_document(filename: str, page_images: list[str]):
     try:
         with open("documents.json", "r") as file:
             documents_data = json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
         documents_data = []
 
-    new_document = await read_document_from_images(page_images, filename=filename)
+    new_document = await tools.read_document_from_images(page_images, filename=filename)
     documents_data.append(new_document)
 
     with open("documents.json", "w") as file:
         json.dump(documents_data, file, indent=4)
 
-def add_assignment(name : str, assignment_type : str, additional_grading_instructions : str):
+
+def add_assignment(
+    name: str, assignment_type: str, additional_grading_instructions: str
+):
     new_assignment = {
         "name": name,
         "rubrics": [],
@@ -39,14 +44,15 @@ def add_assignment(name : str, assignment_type : str, additional_grading_instruc
     with open("assignments.json", "w") as f:
         json.dump(assignments_data, f, indent=4)
 
-def add_student(name : str, class_name : str):
+
+def add_student(name: str, class_name: str):
     new_student = {
         "name": name,
         "analysis_summary": "",
         "recent_submissions": "",
         "class": class_name,
         "completed_assignments": [],
-        "id": get_uuid()
+        "id": get_uuid(),
     }
     try:
         with open("students.json", "r") as file:
@@ -59,6 +65,7 @@ def add_student(name : str, class_name : str):
     with open("students.json", "w") as file:
         json.dump(students_data, file, indent=4)
 
+
 def generate_submission():
     new_submission = {
         "submission_documents": [],
@@ -70,6 +77,7 @@ def generate_submission():
         "id": get_uuid(),
     }
 
+
 def get_students():
     try:
         with open("students.json", "r") as file:
@@ -78,6 +86,7 @@ def get_students():
         students_data = []
 
     return students_data
+
 
 def get_assignments():
     try:
@@ -89,20 +98,7 @@ def get_assignments():
     return assignments_data
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
+"""
 class_json = {
     {
         "name" : "AP Placeholder",
@@ -156,4 +152,5 @@ documents_json = {
         "id" : "",
     }
 }
-'''
+"""
+
