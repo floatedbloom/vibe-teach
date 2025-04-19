@@ -2,6 +2,8 @@ import uuid
 import json
 import tools
 from firebase_admin import db
+from firebase_rtdb import firebase_ref
+import os
 
 class_name = "Algebra"
 
@@ -91,7 +93,7 @@ def get_assignments():
 
 def create_groups():
     summaries = ""
-    students = ref.get("students")
+    students = firebase_ref.get("students")
     for student in students:
         summaries += f"Student: {student['name']}\n"
         summaries += f"Completed Assignments: {', '.join(student['completed_assignments'])}\n\n"
