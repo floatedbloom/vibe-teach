@@ -1,11 +1,12 @@
 import uuid
 import json
-import tools.py
-import data_types.py
+import tools
+import data_types
 
 def get_uuid(): return str(uuid.uuid4())
 
-def add_document(filename : str, page_images : list[str]):
+async def add_document(filename : str, page_images : list[str]):
+
     try:
         with open("documents.json", "r") as file:
             documents_data = json.load(file)
@@ -38,20 +39,6 @@ def add_assignment(name : str, assignment_type : str, additional_grading_instruc
     with open("assignments.json", "w") as f:
         json.dump(assignments_data, f, indent=4)
 
-def add_rubric (filename : str, pages_images : str):
-
-    new_rubric = await read_document_from_images(pages_images, filename=filename)
-    try:
-        with open("documents.json", "r") as file:
-            rubrics_data = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        rubrics_data = []
-    rubrics_data.append(new_rubric)
-
-    # Save the updated list back to the JSON file
-    with open("documents.json", "w") as file:
-        json.dump(rubrics_data, file, indent=4)
-
 def add_student(name : str, class_name : str):
     new_student = {
         "name": name,
@@ -73,26 +60,33 @@ def add_student(name : str, class_name : str):
         json.dump(students_data, file, indent=4)
 
 def generate_submission():
-    return 
-
-class1 = [
-    {
-        "class_name": "AP Computer Science A",
-        "students": students1,
-        "assignments": assignments1,
+    new_submission = {
+        "submission_documents": [],
+        "text": "",
+        "grading_analysis": "",
+        "analysis_summary": "",
+        "grade": None,
+        "student_id": "",
+        "id": get_uuid(),
     }
-]
 
-students1 = {
-    {
-        "name" : "Alice Johnson",
-        "analysis_summary" : "",
-        "recent_submissions" : get_uuid(),
-        "class" : "",
-        "completed_assignments" : [],
-        "id" : get_uuid()
-    }
-}
+def get_students():
+    try:
+        with open("students.json", "r") as file:
+            students_data = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        students_data = []
+
+    return students_data
+
+def get_assignments():
+    try:
+        with open("assignments.json", "r") as file:
+            assignments_data = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        assignments_data = []
+
+    return assignments_data
 
 
 
