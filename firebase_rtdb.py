@@ -34,6 +34,7 @@ else:
     app = firebase_admin.initialize_app(
         credentials.Certificate(_cert),
         {'databaseURL': 'https://fir-demo-6e298-default-rtdb.firebaseio.com'},
+        name='firebase-demo'
     )
 
     ref = db.reference('/', app)

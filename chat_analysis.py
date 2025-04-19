@@ -1,5 +1,9 @@
 import streamlit as st
 import numpy as np
+import asyncio
+
+from tools import generate_chat_analysis
+from firebase_rtdb import ref
 
 def create_chat_analysis_page():
     # ...
@@ -11,16 +15,12 @@ def create_chat_analysis_page():
     # with st.chat_message("assistant"):
     #     st.write("Hello human")
     #     st.bar_chart(np.random.randn(30, 3))
+    
 
-
-    st.title("Echo Bot")
-
-    # Initialize chat history
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+    st.title("Chat Analysis")
 
     # Display chat messages from history on app rerun
-    for message in st.session_state.messages:
+    for message in (ref.child("chat_analysis_history").get() or {}).values():
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
     
@@ -30,14 +30,14 @@ def create_chat_analysis_page():
         with st.chat_message("user"):
             st.markdown(prompt)
         # Add user message to chat history
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        ref.child("chat_analysis_history").push({"role": "user", "content": prompt})
 
-        response = f"Echo: {prompt}"
+        response = asyncio.run(generate_chat_analysis(ref.child("chat_analysis_history").get()))
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
             st.markdown(response)
         # Add assistant response to chat history
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        ref.child("chat_analysis_history").push({"role": "assistant", "content": response})
 
 
 
