@@ -158,6 +158,8 @@ async def generate_submission_from_documents(documents: list[Document], *, assig
         'grade': submission_data['grade'],
     }
 
+# async def generate_chat
+
 async def main():
     # Create document from math.pdf and grade the document based off of assignment and class placeholder values
     with open('math.docx', 'rb') as f:

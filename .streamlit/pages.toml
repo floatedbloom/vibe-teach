@@ -13,3 +13,8 @@ icon = "👤"
 path = "pages/create_assigment.py"
 name = "Create Assignment"
 icon = "📝"
+
+[[pages]]
+path = "chat_analysis.py"
+name = "Chat Analysis"
+icon = "📊"
