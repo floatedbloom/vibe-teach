@@ -3,3 +3,8 @@
 path = "classroom.py"
 name = "Algebra"
 icon = "🧑‍🏫"
+
+[[pages]]
+path = "create_assigment.py"
+name = "Create Assignment"
+icon = "📝"

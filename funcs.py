@@ -13,7 +13,7 @@ async def add_document(filename : str, page_images : list[str]):
     except (FileNotFoundError, json.JSONDecodeError):
         documents_data = []
 
-    new_document = await read_document_from_images(page_images, filename=filename)
+    new_document = await tools.read_document_from_images(page_images, filename=filename)
     documents_data.append(new_document)
 
     with open("documents.json", "w") as file:
