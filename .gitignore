@@ -40,3 +40,4 @@ students.json
 submissions.json
 documents.json
 
+__pycache__/
