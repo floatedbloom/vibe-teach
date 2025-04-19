@@ -29,11 +29,17 @@ if __name__ == '__main__':
 
 else:
 
+    # Initialize and expose the Firebase reference for use throughout the program
     _cert = json.loads(base64.b64decode(os.getenv('RTDB_KEY')).decode())
 
-    app = firebase_admin.initialize_app(
-        credentials.Certificate(_cert),
-        {'databaseURL': 'https://fir-demo-6e298-default-rtdb.firebaseio.com'},
-    )
+    # Ensure `app` is defined globally for use when the script is imported
+    if not firebase_admin._apps:
+        app = firebase_admin.initialize_app(
+            credentials.Certificate(_cert),
+            {'databaseURL': 'https://fir-demo-6e298-default-rtdb.firebaseio.com'},
+        )
+    else:
+        app = firebase_admin.get_app()  # Retrieve the already initialized app
 
-    ref = db.reference('/', app)
+    # Expose the Firebase reference for other modules
+    firebase_ref = db.reference('/', app)

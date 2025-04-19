@@ -1,6 +1,7 @@
 import uuid
 import json
 import tools
+from firebase_admin import db
 
 class_name = "Algebra"
 
@@ -10,17 +11,15 @@ def get_uuid():
 
 
 async def add_document(filename: str, page_images: list[str]):
-    try:
-        with open("documents.json", "r") as file:
-            documents_data = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        documents_data = []
+    # Replace JSON loading with Firebase RTDB
+    documents_ref = db.reference("documents")
+    documents_data = documents_ref.get() or []
 
     new_document = await tools.read_document_from_images(page_images, filename=filename)
     documents_data.append(new_document)
 
-    with open("documents.json", "w") as file:
-        json.dump(documents_data, file, indent=4)
+    # Replace JSON saving with Firebase RTDB
+    documents_ref.set(documents_data)
 
 
 def add_assignment(
@@ -35,16 +34,14 @@ def add_assignment(
         "group": group,
         "id": get_uuid(),
     }
-    try:
-        with open("assignments.json", "r") as f:
-            assignments_data = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        assignments_data = []
+    # Replace JSON loading with Firebase RTDB
+    assignments_ref = db.reference("assignments")
+    assignments_data = assignments_ref.get() or []
 
     assignments_data.append(new_assignment)
 
-    with open("assignments.json", "w") as f:
-        json.dump(assignments_data, f, indent=4)
+    # Replace JSON saving with Firebase RTDB
+    assignments_ref.set(assignments_data)
 
 
 def add_student(name: str):
@@ -56,16 +53,14 @@ def add_student(name: str):
         "completed_assignments": [],
         "id": get_uuid(),
     }
-    try:
-        with open("students.json", "r") as file:
-            students_data = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        students_data = []
+    # Replace JSON loading with Firebase RTDB
+    students_ref = db.reference("students")
+    students_data = students_ref.get() or []
+
     students_data.append(new_student)
 
-    # Save the updated list back to the JSON file
-    with open("students.json", "w") as file:
-        json.dump(students_data, file, indent=4)
+    # Replace JSON saving with Firebase RTDB
+    students_ref.set(students_data)
 
 
 def generate_submission():
@@ -81,23 +76,25 @@ def generate_submission():
 
 
 def get_students():
-    try:
-        with open("students.json", "r") as file:
-            students_data = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        students_data = []
+    # Replace JSON loading with Firebase RTDB
+    students_ref = db.reference("students")
+    students_data = students_ref.get() or []
 
     return students_data
 
 
 def get_assignments():
-    try:
-        with open("assignments.json", "r") as file:
-            assignments_data = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        assignments_data = []
+    assignments_ref = db.reference("assignments")
+    assignments_data = assignments_ref.get() or []
 
     return assignments_data
+
+def create_groups():
+    summaries = ""
+    students = ref.get("students")
+    for student in students:
+        summaries += f"Student: {student['name']}\n"
+        summaries += f"Completed Assignments: {', '.join(student['completed_assignments'])}\n\n"
 
 
 """

@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 import json
 from funcs import get_students
+from firebase_admin import db
 
 def view_student_page(student_name):
     st.title(f"Student Profile: {student_name}")
@@ -14,11 +15,9 @@ def view_student_page(student_name):
 
     # Scrollable list of completed assignments
     st.subheader("Completed Assignments")
-    try:
-        with open("assignments.json", "r") as file:
-            assignments_data = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        assignments_data = []
+    # Replace JSON loading with Firebase RTDB
+    assignments_ref = db.reference("assignments")
+    assignments_data = assignments_ref.get() or []
 
     completed_assignments = [a for a in assignments_data if a.get("student_name") == student_name]
     completed_assignments.sort(key=lambda x: x.get("completion_date", ""))  # Sort by date
