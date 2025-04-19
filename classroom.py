@@ -1,9 +1,24 @@
 import streamlit as st
 import st_pages as pages
 from funcs import get_students, get_assignments, add_student
+import os  
+import json
 
 # Title of the app
 st.header("Manage Classroom")
+
+st.subheader("Add Class Documents")
+uploaded_file = st.file_uploader("Upload File", type=["pdf", "png", "jpg", "docx"])
+if uploaded_file is not None:
+    # Create a directory if it doesn't exist
+    save_dir = "class_docs"
+    os.makedirs(save_dir, exist_ok=True)
+    
+    # Save the file
+    file_path = os.path.join(save_dir, uploaded_file.name)
+    with open(file_path, 'wb') as f:
+        f.write(uploaded_file.getvalue())
+    st.success(f"File saved as {uploaded_file.name} in {save_dir}")
 
 # Students Section
 st.subheader("Manage Students")

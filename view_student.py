@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.express as px
 import json
+from funcs import get_students
 
 def view_student_page(student_name):
     st.title(f"Student Profile: {student_name}")
@@ -28,3 +29,14 @@ def view_student_page(student_name):
     # AI-generated summary of performance
     st.subheader("Performance Summary")
     st.write("This is a placeholder for an AI-generated summary of the student's performance.")
+
+students = get_students()
+if students:
+    st.subheader("Student List")
+    with st.container(height = 300):
+        for student in students:
+            student_link = f"[**{student['name']}**](?page=view_student&student_name={student['name']})"
+            st.markdown(student_link, unsafe_allow_html=True)
+            st.divider()  # Add a horizontal line between items
+else:
+    st.info("No students added yet.")
