@@ -1,5 +1,6 @@
 import streamlit as st
-from funcs import add_student, add_assignment, get_students, get_assignments
+import st_pages as pages
+from funcs import get_students, get_assignments, add_student
 
 # Title of the app
 st.header("Manage Classroom")
@@ -28,21 +29,16 @@ else:
 # Assignments Section
 st.subheader("Manage Assignments")
 
-# Add a new assignment
-with st.form("add_assignment_form"):
-    assignment_title = st.text_input("Assignment Title")
-    assignment_type = st.text_input("Assignment Type")
-    additional_instructions = st.text_area("Additional Grading Instructions")
-    submitted = st.form_submit_button("Add Assignment")
-    if submitted and assignment_title and assignment_type:
-        add_assignment(assignment_title, assignment_type, additional_instructions)
-        st.success(f"Added assignment: {assignment_title}")
-
 # Display list of assignments
 assignments = get_assignments()
 if assignments:
     st.subheader("Assignment List")
     for assignment in assignments:
-        st.write(f"- {assignment['name']} (Type: {assignment['assignment_type']})")
+        st.write(
+            f"- {assignment['name']} (Type: {assignment['assignment_type']}, Group: {assignment.get('group', 'all')})"
+        )
 else:
     st.info("No assignments added yet.")
+
+page = st.Page("pages/create_assigment.py")
+st.page_link(page, label="Add Assignments", icon="📝")
