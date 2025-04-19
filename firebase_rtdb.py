@@ -9,6 +9,13 @@ import json
 from dotenv import load_dotenv
 load_dotenv()
 
+def add_base64_padding(encoded_str):
+    """Ensure the Base64 string has proper padding."""
+    missing_padding = len(encoded_str) % 4
+    if missing_padding:
+        encoded_str += "=" * (4 - missing_padding)
+    return encoded_str
+
 if __name__ == '__main__':
 
     input('(Warning) Will reset .env file. Enter to continue. Ctrl-C to quit.')
@@ -29,8 +36,17 @@ if __name__ == '__main__':
 
 else:
 
-    # Initialize and expose the Firebase reference for use throughout the program
-    _cert = json.loads(base64.b64decode(os.getenv('RTDB_KEY')).decode())
+    # Get the Base64-encoded key from the environment variable
+    rtdb_key = os.getenv('RTDB_KEY')
+
+    if not rtdb_key:
+        raise ValueError("RTDB_KEY environment variable is not set.")
+
+    # Add padding to the Base64 string if necessary
+    rtdb_key = add_base64_padding(rtdb_key)
+
+    # Decode the Base64 string and load the JSON
+    _cert = json.loads(base64.b64decode(rtdb_key).decode())
 
     # Ensure `app` is defined globally for use when the script is imported
     if not firebase_admin._apps:
