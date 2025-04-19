@@ -17,7 +17,6 @@ def create_chat_analysis_page():
     #     st.bar_chart(np.random.randn(30, 3))
     
 
-    st.title("Chat Analysis")
     st.write("This is a synced chat analysis page. Refresh to see new messages from other users.")
 
     # Display chat messages from history on app rerun
