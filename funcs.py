@@ -2,6 +2,8 @@ import uuid
 import json
 import tools
 
+class_name = "Algebra"
+
 
 def get_uuid():
     return str(uuid.uuid4())
@@ -45,7 +47,7 @@ def add_assignment(
         json.dump(assignments_data, f, indent=4)
 
 
-def add_student(name: str, class_name: str):
+def add_student(name: str):
     new_student = {
         "name": name,
         "analysis_summary": "",

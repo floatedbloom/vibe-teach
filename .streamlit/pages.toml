@@ -8,3 +8,8 @@ icon = "🧑‍🏫"
 path = "pages/create_assigment.py"
 name = "Create Assignment"
 icon = "📝"
+
+[[pages]]
+path = "view_student.py"
+name = "Student Details"
+icon = "🎓"
