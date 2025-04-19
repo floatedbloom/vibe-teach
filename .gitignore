@@ -5,3 +5,12 @@ venv/
 */env/
 */.env/
 */.venv/
+
+#ignore bin etc, include, lib, lib64, share
+/bin/
+/lib/
+lib64
+/include/
+/share/
+pyvenv.cfg
+pydeck.json
