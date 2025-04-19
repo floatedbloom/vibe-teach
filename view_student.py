@@ -28,5 +28,3 @@ def view_student_page(student_name):
     # AI-generated summary of performance
     st.subheader("Performance Summary")
     st.write("This is a placeholder for an AI-generated summary of the student's performance.")
-
-view_student_page("John Doe")

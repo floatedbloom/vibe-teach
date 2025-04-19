@@ -1,7 +1,6 @@
 import uuid
 import json
 import tools
-import data_types
 
 class_name = "Algebra"
 
@@ -25,7 +24,7 @@ async def add_document(filename: str, page_images: list[str]):
 
 
 def add_assignment(
-    name: str, assignment_type: str, additional_grading_instructions: str
+    name: str, assignment_type: str, additional_grading_instructions: str, group: str = "all"
 ):
     new_assignment = {
         "name": name,
@@ -33,6 +32,7 @@ def add_assignment(
         "assignment_type": assignment_type,
         "additional_grading_instructions": additional_grading_instructions,
         "submission_ids": [],
+        "group": group,
         "id": get_uuid(),
     }
     try:
@@ -119,6 +119,7 @@ assignments_json = {
         "assignment_type" : "",
         "additional_grading_instructions" : "",
         "submissions_ids" : [],
+        "group" : "",
         "id" : ""
     }
 }

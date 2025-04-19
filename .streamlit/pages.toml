@@ -5,16 +5,6 @@ name = "Algebra"
 icon = "🧑‍🏫"
 
 [[pages]]
-path = "create_assigment.py"
-name = "Create Assignment"
-icon = "📝"
-
-[[pages]]
-path = "view_student.py"
-name = "Student Details"
-icon = "🎓"
-
-[[pages]]
 path = "chat_analysis.py"
 name = "Chat Analysis"
 icon = "📊"
