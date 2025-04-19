@@ -1,5 +1,6 @@
 import streamlit as st
-from funcs import add_student, add_assignment, get_students, get_assignments
+import st_pages as pages
+from funcs import get_students, get_assignments, add_student
 
 # Title of the app
 st.header("Manage Classroom")
@@ -30,10 +31,6 @@ else:
 # Assignments Section
 st.subheader("Manage Assignments")  
 
-# Replace the form with a button to redirect to the create_assignment page
-if st.button("Create Assignment"):
-    st.experimental_set_query_params(page="create_assigment")
-
 # Display list of assignments
 assignments = get_assignments()
 if assignments:
@@ -45,3 +42,6 @@ if assignments:
             st.divider()  # Add a horizontal line between items
 else:
     st.info("No assignments added yet.")
+
+page = st.Page("pages/create_assigment.py")
+st.page_link(page, label="Add Assignments", icon="📝")

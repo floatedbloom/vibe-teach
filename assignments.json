@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Math",
+        "rubrics": [],
+        "assignment_type": "Summative",
+        "additional_grading_instructions": "sigma",
+        "submission_ids": [],
+        "group": "all",
+        "id": "dc2404ec-6e01-4776-80ef-ec3c4bc9c81e"
+    },
+    {
+        "name": "sigma",
+        "rubrics": [],
+        "assignment_type": "Formative",
+        "additional_grading_instructions": "sigma",
+        "submission_ids": [],
+        "group": "all",
+        "id": "3ea8b637-475e-4791-b429-87a8ae14a810"
+    }
+]
