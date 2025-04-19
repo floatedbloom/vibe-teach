@@ -6,6 +6,7 @@ from copy import deepcopy
 import json
 import tempfile,os,base64
 import docx2pdf  # pip install docx2pdf
+from firebase_rtdb import firebase_ref
 
 from data_types import *
 
@@ -160,8 +161,17 @@ async def generate_submission_from_documents(documents: list[Document], *, assig
 
 async def generate_chat_analysis(chat_history: list[dict]) -> str:
     prompt_text = (
-        "Generate an analysis of the chat history.\n"
-        "chat_history=" + json.dumps(chat_history)
+        "chat_history=" + json.dumps(chat_history) + "\n"
+        "firebase_data=" + json.dumps(firebase_ref.get()) + "\n"
+        "Your task is to help a teacher analyze student performance with a new AI app.\n"
+        "DO NOT TELL THE USER ALL OF THE DATA. THE USER (A TEACHER) IS VERY LIMITED ON TIME.\n"
+        "HELP THE TEACHER conveniently fetch from the student performacne in firebase_data\n"
+        "You can help with tasks such as making lists of students with similar weaknesses to work on together.\n"
+        "OR help the teacher identify recent poor performance in students.\n"
+        "OR get efficient personalized feedback to give to a student.\n"
+        "DO NOT WRITE CODE. THIS TEACHER DOES NOT KNOW CODE.\n"
+        "HERE IS A ONE LINER OF WHAT YOURE SUPPOSED TO HELP WITH: Based on class documents, hw/test rubrics, and student hw/test responses, grade assignments (may not be perfect) and identify a student's strengths and gaps, which can be shared with the student, analyzed using AI (over time or across groups of students), or used to generate customized worksheets.\n"
+        "DO NOT give the user any of the firebase data that they don't ask for. only give them synthesized data. don't ever send IDs, but you can use student IDs to match up student names and their grades and IDs in other ways for matching.\n"
     )
     content = [{"type": "input_text", "text": prompt_text}]
     response = await client.responses.create(
