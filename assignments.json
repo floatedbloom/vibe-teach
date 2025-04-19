@@ -24,6 +24,15 @@
         "additional_grading_instructions": "",
         "submission_ids": [],
         "group": "all",
-        "id": "37ef80d3-cb46-4106-9bff-e2a42b28c92d"
+        "id": "a3a8aad2-c4a7-4898-bfd0-87b72f2acc96"
+    },
+    {
+        "name": "",
+        "rubrics": [],
+        "assignment_type": "Formative",
+        "additional_grading_instructions": "",
+        "submission_ids": [],
+        "group": "all",
+        "id": "4bec8d4c-3c5b-4bb3-9e24-151950893c73"
     }
 ]

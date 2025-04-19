@@ -30,7 +30,6 @@ def create_assignment_page():
     selected_group = st.selectbox("Choose a group for this assignment", groups)
 
     # File Uploads Section
-    st.subheader("Upload Files")
 
     # Buttons to add rubrics
     st.subheader("Add Rubrics")
@@ -46,6 +45,7 @@ def create_assignment_page():
             f.write(uploaded_file.getvalue())
         
         st.success(f"File saved as {uploaded_file.name} in {save_dir}")
+    st.subheader("Upload Student Submissions")
 
     # PDF Submission
     pdf_file = st.file_uploader("Upload PDF Submission", type=["pdf"])

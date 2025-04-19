@@ -158,6 +158,19 @@ async def generate_submission_from_documents(documents: list[Document], *, assig
         'grade': submission_data['grade'],
     }
 
+async def generate_chat_analysis(chat_history: list[dict]) -> str:
+    prompt_text = (
+        "Generate an analysis of the chat history.\n"
+        "chat_history=" + json.dumps(chat_history)
+    )
+    content = [{"type": "input_text", "text": prompt_text}]
+    response = await client.responses.create(
+        model='o4-mini',
+        input=[{'role': 'user', 'content': content}],
+    )
+    return response.output_text
+
+
 async def main():
     # Create document from math.pdf and grade the document based off of assignment and class placeholder values
     with open('math.docx', 'rb') as f:

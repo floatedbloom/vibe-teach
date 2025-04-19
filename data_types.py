@@ -37,6 +37,7 @@ class Assignment(TypedDict):
     assignment_type: str  # 'formative' | 'summative'
     additional_grading_instructions: str
     submission_ids: list[Submission.__annotations__["id"]]
+    analysis_summary: str
 
 
 class Class(TypedDict):
